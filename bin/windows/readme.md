@@ -1,1 +1,1 @@
-Windows 7+ binary
+Windows 7+ x64 binary
