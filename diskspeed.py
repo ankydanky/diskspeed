@@ -37,8 +37,9 @@ import tempfile
 import time
 import platform
 import subprocess
+import random
 
-__version__ = 1.0
+__version__ = 1.1
 __author__ = "NDK"
 
 
@@ -75,15 +76,18 @@ class DiskSpeed(object):
         print(f'==> start time: {time.strftime("%Y-%m-%d %H:%M:%S")}')
 
         percent = 0
-
         current = 0
 
-        start_write = time.time()
+        random_write = ""
+        for i in range(self.clustersize):
+            random_write += f"{random.randint(0, 1)}"
         
+        start_write = time.time()
+
         fh = open(self.writefile, "wb")
         while current <= self.filesize:
-            data = b"0" * self.clustersize
-            fh.write(data)
+            data = random_write
+            fh.write(data.encode())
             print(f"Writing: {current} of {self.filesize}...", end="\r", flush=True)
             current += self.clustersize
         fh.close()
